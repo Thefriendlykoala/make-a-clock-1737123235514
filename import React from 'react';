@@ -1,0 +1,15 @@
+import { useClock } from '../hooks/useClock';
+
+const Clock: React.FC = () => {
+  const { hours, minutes, seconds } = useClock();
+
+  return (
+    <div className={clsx('clock-container', 'animate-pulse')}>
+      <div className="time">
+        {hours}:{minutes}:{seconds}
+      </div>
+    </div>
+  );
+};
+
+export default Clock;
