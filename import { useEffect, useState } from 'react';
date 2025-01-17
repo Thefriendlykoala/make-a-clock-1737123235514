@@ -1,0 +1,31 @@
+interface ClockState {
+  hours: string;
+  minutes: string;
+  seconds: string;
+}
+
+export const useClock = (): ClockState => {
+  const [time, setTime] = useState<ClockState>({
+    hours: '00',
+    minutes: '00',
+    seconds: '00',
+  });
+
+  useEffect(() => {
+    const tick = () => {
+      const now = new Date();
+      setTime({
+        hours: String(now.getHours()).padStart(2, '0'),
+        minutes: String(now.getMinutes()).padStart(2, '0'),
+        seconds: String(now.getSeconds()).padStart(2, '0'),
+      });
+    };
+
+    tick();
+    const timerId = setInterval(tick, 1000);
+
+    return () => clearInterval(timerId);
+  }, []);
+
+  return time;
+};
